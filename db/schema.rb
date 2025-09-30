@@ -10,11 +10,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_15_192914) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_30_172015) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
+  create_table "carrinho_produtos", force: :cascade do |t|
+    t.bigint "carrinho_id", null: false
+    t.bigint "produto_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["carrinho_id"], name: "index_carrinho_produtos_on_carrinho_id"
+    t.index ["produto_id"], name: "index_carrinho_produtos_on_produto_id"
+  end
+
+  create_table "carrinhos", force: :cascade do |t|
+    t.integer "quantidadeProduto"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "usuario_id", null: false
+    t.index ["usuario_id"], name: "index_carrinhos_on_usuario_id"
+  end
+
   create_table "categoria", force: :cascade do |t|
+    t.string "nome"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "configuracao_usuarios", force: :cascade do |t|
+    t.bigint "usuario_id", null: false
+    t.bigint "configuracao_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "valor"
+    t.index ["configuracao_id"], name: "index_configuracao_usuarios_on_configuracao_id"
+    t.index ["usuario_id"], name: "index_configuracao_usuarios_on_usuario_id"
+  end
+
+  create_table "configuracaos", force: :cascade do |t|
     t.string "nome"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -54,8 +87,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_15_192914) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "senha"
   end
 
+  add_foreign_key "carrinho_produtos", "carrinhos"
+  add_foreign_key "carrinho_produtos", "produtos"
+  add_foreign_key "carrinhos", "usuarios"
+  add_foreign_key "configuracao_usuarios", "configuracaos"
+  add_foreign_key "configuracao_usuarios", "usuarios"
   add_foreign_key "enderecos", "usuarios"
   add_foreign_key "posts", "usuarios"
   add_foreign_key "produtos", "categoria", column: "categoria_id"

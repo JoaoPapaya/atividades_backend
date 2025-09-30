@@ -22,7 +22,7 @@ default: &default
 
 development:
   <<: *default
-  database: atividades_development
+  database: projetoindiego
   host: 172.16.80.101
   username: usuario
   password: senha

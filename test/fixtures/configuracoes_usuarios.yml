@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id_usuarios: one
+  id_configuracoes: one
+  valor: 1
+
+two:
+  id_usuarios: two
+  id_configuracoes: two
+  valor: 1
