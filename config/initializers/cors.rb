@@ -1,9 +1,10 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'localhost:5173', '127.0.0.1:5173'
- 
+    origins '*'  # Permite qualquer origem. Troque por 'http://localhost:8081' para restringir.
+
     resource '*',
       headers: :any,
-      methods: [:get, :post, :put, :patch, :delete, :options, :head]
+      methods: [:get, :post, :put, :patch, :delete, :options, :head],
+      credentials: false
   end
 end
