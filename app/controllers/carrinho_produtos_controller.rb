@@ -1,57 +1,57 @@
 class CarrinhoProdutosController < ApplicationController
     def index
-        carrinho_produtos = Carrinho_produto.all
-        render json: carrino_produtos
+        carrinho_produtos = CarrinhoProduto.all
+        render json: carrinho_produtos
     end
     
     def show
         begin
-        carrino_produto = Carrino_produto.find(params[:id])
-        render json: carrino_produto
+        carrinho_produto = CarrinhoProduto.find(params[:id])
+        render json: carrinho_produto
         rescue ActiveRecord::RecordNotFound
-        render json: { error: 'carrino_produto não encontrado' }, status: :not_found
+        render json: { error: 'carrinho_produto não encontrado' }, status: :not_found
         end
     end
     
     def create
         puts "Parâmetros recebidos: #{params.inspect}" # Para depuração
 
-        carrino_produto = Carrino_produto.new(carrino_produto_params)
+        carrinho_produto = CarrinhoProduto.new(carrinho_produto_params)
         
-        if carrino_produto.save
-        render json: carrino_produto, status: :created
+        if carrinho_produto.save
+        render json: carrinho_produto, status: :created
         else
-        render json: carrino_produto.errors, status: :unprocessable_entity
+        render json: carrinho_produto.errors, status: :unprocessable_entity
         end
     end
 
     def update
         begin
-        carrino_produto = Carrino_produto.find(params[:id])
+        carrinho_produto = CarrinhoProduto.find(params[:id])
         
-        if carrino_produto.update(carrino_produto_params)
-            render json: carrino_produto
+        if carrinho_produto.update(carrinho_produto_params)
+            render json: carrinho_produto
         else
-            render json: carrino_produto.errors, status: :unprocessable_entity
+            render json: carrinho_produto.errors, status: :unprocessable_entity
         end
         rescue ActiveRecord::RecordNotFound
-        render json: { error: 'carrino_produto não encontrado' }, status: :not_found
+        render json: { error: 'carrinho_produto não encontrado' }, status: :not_found
         end
     end
 
     def destroy
         begin
-        carrino_produto = Carrino_produto.find(params[:id])
-        carrino_produto.destroy
-        render json: { message: 'carrino_produto deletado com sucesso' }, status: :ok
+        carrinho_produto = CarrinhoProduto.find(params[:id])
+        carrinho_produto.destroy
+        render json: { message: 'carrinho_produto deletado com sucesso' }, status: :ok
         rescue ActiveRecord::RecordNotFound
-        render json: { error: 'carrino_produto não encontrado' }, status: :not_found
+        render json: { error: 'carrinho_produto não encontrado' }, status: :not_found
         end
     end
     
     private
 
-    def carrino_produto_params
-        params.require(:carrino_produto).permit(:carrinho_id, :produto_id)
+    def carrinho_produto_params
+        params.require(:carrinho_produto).permit(:carrinho_id, :produto_id)
     end
 end

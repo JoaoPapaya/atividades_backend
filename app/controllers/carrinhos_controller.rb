@@ -54,5 +54,4 @@ class CarrinhosController < ApplicationController
     def carrinho_params
         params.require(:carrinho).permit(:usuario_id, :quantidadeProduto)
     end
-    end
 end
